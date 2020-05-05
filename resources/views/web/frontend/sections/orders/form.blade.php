@@ -4,7 +4,12 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="text">Answer</label>
-                <textarea class="form-control" id="text" name="text">{{ old('text') }}</textarea>
+                <textarea required class="form-control @error('text') is-invalid @enderror" id="text" name="text">{{ old('text') }}</textarea>
+                @error('text')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
         </div>
         <div class="card-footer">

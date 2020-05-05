@@ -14,7 +14,7 @@ class AnswerRequest extends FormRequest
     public function rules()
     {
         return [
-            ''
+            'text'=>'required|min:3'
         ];
     }
 }
