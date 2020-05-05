@@ -33,9 +33,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        @auth
                         <li class="nav-item">
+                            @can('manage_orders', Auth::user())
+                            <a href="{{ route('backend.orders.index') }}" class="nav-link">Manage orders</a>
+                            @else
                             <a href="{{ route('frontend.orders.index') }}" class="nav-link">Orders</a>
+                            @endcan
                         </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
