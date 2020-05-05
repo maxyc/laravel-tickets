@@ -12,3 +12,7 @@ npm-debug.log
 yarn-error.log
 docker/mysql/datadir/*
 .idea
+public/css
+public/js
+storage
+public/mix-manifest.json
