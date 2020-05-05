@@ -36,6 +36,7 @@ Route::group(['prefix'=>'manage/orders', 'middleware'=>['web', 'auth'], 'namespa
     Route::name('backend.orders.index')->get('/', 'OrderController@index');
 
     Route::name('backend.orders.close')->patch('{order}/close', 'OrderController@close');
+    Route::name('backend.orders.approve')->patch('{order}/approve', 'OrderController@approve');
 
     Route::name('backend.orders.show')->get('{order}', 'OrderController@show');
     Route::name('backend.orders.answer')->post('{order}/answer', 'OrderController@answer');

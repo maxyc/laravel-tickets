@@ -15,7 +15,7 @@ class OrderPolicy
         return false;
     }
 
-    public function approved(User $user, Order $order)
+    public function approve(User $user, Order $order)
     {
         return $user->isManager() && $order->isNew();
     }
