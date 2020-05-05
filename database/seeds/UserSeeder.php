@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'manager',
                 'email' => 'manager@mail.ru',
-                'role_id' => 'admin'
+                'role_id' => User::ROLE_MANAGER
             ]
         )->each(
             function ($user) use ($pass) {

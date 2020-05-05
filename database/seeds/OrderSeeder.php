@@ -19,10 +19,11 @@ class OrderSeeder extends Seeder
 
     public function run()
     {
-        factory(Order::class, 100)->make()->each(function ($order){
-            $order = $this->createOrderService->create($order->ownerId, $order->attributesToArray());
+        $ownerId = 2;
+        factory(Order::class, 100)->make(['owner_id' => $ownerId])->each(function ($order) use ($ownerId){
+            $order = $this->createOrderService->create($ownerId, $order->attributesToArray());
 
-            $order->messages()->createMany(factory(OrderMessage::class, rand(1,10))->make()->toArray());
+            $order->messages()->createMany(factory(OrderMessage::class, random_int(1, 10))->make()->toArray());
         });
     }
 }
