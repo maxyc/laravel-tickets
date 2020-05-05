@@ -16,7 +16,7 @@ class CreateOrderRequest extends FormRequest
         return [
             'title'=>'required|min:3',
             'note'=>'required|min:3',
-            'file'=>'file'
+//            'file'=>'file'
         ];
     }
 }

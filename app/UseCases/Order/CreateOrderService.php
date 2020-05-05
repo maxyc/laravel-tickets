@@ -12,6 +12,7 @@ class CreateOrderService
     {
         $owner = User::findOrFail($ownerId);
 
+        $data['owner_id'] = $owner->id;
         $order = Order::create($data);
 
         event(new OrderCreatedEvent($order));
