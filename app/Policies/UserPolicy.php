@@ -11,9 +11,14 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
+    public function manage_orders(User $user)
+    {
+        return $user->isManager();
+    }
     public function create_order(User $user)
     {
-        return $user->getLastOrder()->created_at->diffInDays(now()) > 0;
+        $order = $user->getLastOrder();
+        return $order && $order->created_at->diffInDays(now()) > 0;
     }
 
 }
