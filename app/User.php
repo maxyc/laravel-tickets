@@ -65,4 +65,14 @@ class User extends Authenticatable
     {
         return $this->role_id === static::ROLE_MANAGER;
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'owner_id');
+    }
+
+    public function getLastOrder()
+    {
+        return $this->orders()->limit(1)->orderBy('created_at', 'desc')->first();
+    }
 }

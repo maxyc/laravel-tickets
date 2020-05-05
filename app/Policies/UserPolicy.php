@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Order;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
@@ -12,7 +13,7 @@ class UserPolicy
 
     public function create_order(User $user)
     {
-        return true;
+        return $user->getLastOrder()->created_at->diffInDays(now()) > 0;
     }
 
 }

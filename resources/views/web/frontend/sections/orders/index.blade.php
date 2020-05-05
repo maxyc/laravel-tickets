@@ -8,6 +8,8 @@
 
             @can('create_order', Auth::user())
             <a href="{{ route('frontend.orders.create') }}" class="btn btn-primary btn-sm">Create new order</a>
+            @else
+                <small class="text-muted">You can create a new order in 24 hours</small>
             @endcan
 
             <table class="table table-bordered table-stripped table-hover">
@@ -21,24 +23,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($models as $model)
-                    <tr class="@if($model->isClosed()) text-muted table-secondary @elseif($model->isNew()) table-info @endif">
+                @foreach($orders as $order)
+                    <tr class="@if($order->isClosed()) text-muted table-secondary @elseif($order->isNew()) table-info @endif">
                         <td>
 
-                            {{ $model->id }}
+                            {{ $order->id }}
 
                         </td>
                         <td>
-                            @if(!$model->is_read)<strong>@endif
-                                <a href="{{ route('frontend.orders.show', ['order'=>$model]) }}">{{ $model->title }}</a>
-                                @if(!$model->is_read)</strong>@endif
+                            @if(!$order->is_read)<strong>@endif
+                                <a href="{{ route('frontend.orders.show', ['order'=>$order]) }}">{{ $order->title }}</a>
+                                @if(!$order->is_read)</strong>@endif
 
-                            @if($model->has_answer)<span class="text-danger">NEW</span>@endif
+                            @if($order->has_answer)<span class="text-danger">NEW</span>@endif
                         </td>
-                        <td>{{ $model->status }}</td>
-                        <td>{{ $model->count_messages }}</td>
+                        <td>{{ $order->status }}</td>
+                        <td>{{ $order->count_messages }}</td>
                         <td>
-
+                            @include('web.frontend.sections.orders._partials.close')
                         </td>
                     </tr>
                 @endforeach
@@ -46,7 +48,7 @@
             </table>
         </div>
 
-        {{ $models->links() }}
+        {{ $orders->links() }}
 
         <div class="card">
             <div class="card-header">Legend</div>

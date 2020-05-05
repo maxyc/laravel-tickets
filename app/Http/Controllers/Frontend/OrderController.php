@@ -39,12 +39,12 @@ class OrderController extends Controller
 
     public function index(OrderListRequest $request)
     {
-        $models = Order::where('owner_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate();
+        $orders = Order::where('owner_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate();
 
         return view(
             'web.frontend.sections.orders.index',
             [
-                'models' => $models
+                'orders' => $orders
             ]
         );
     }

@@ -29,17 +29,7 @@
                     <dl class="row">
                         <dt class="col-sm-2">Available actions:</dt>
                         <dd class="col-sm-10">
-                            @can('close', $order)
-                                <form class="d-inline-block" method="post" onsubmit="return confirm('Are you sure?')"
-                                      action="{{ route('frontend.orders.close', ['order'=>$order])}}">
-                                    @csrf
-                                    @method('PATCH')
-
-                                    <button class="btn btn-danger btn-sm" type="submit" data-toggle="tooltip"
-                                            data-placement="bottom" title="Close order"> Close
-                                    </button>
-                                </form>
-                            @endcan
+                            @include('web.frontend.sections.orders._partials.close')
                         </dd>
                     </dl>
                 </div>
