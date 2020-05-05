@@ -1,3 +1,4 @@
+@can('answer', $order)
 <div class="card w-100">
     <form action="{{ route('frontend.orders.answer', ['order'=>$order]) }}" method="post">
         @csrf
@@ -17,3 +18,4 @@
         </div>
     </form>
 </div>
+@endcan

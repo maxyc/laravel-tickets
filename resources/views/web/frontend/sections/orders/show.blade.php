@@ -14,14 +14,15 @@
                 </div>
                 <div class="card-footer">
                     <dl class="row">
-                        <dt class="col-sm-3">Owner:</dt>
-                        <dd class="col-sm-9">{{ $order->owner->name }}</dd>
+                        <dt class="col-sm-2">Owner:</dt>
+                        <dd class="col-sm-10">{{ $order->owner->name }} (#{{ $order->owner_id }})</dd>
                     </dl>
                     <dl class="row">
-                        <dt class="col-sm-3">Available actions:</dt>
-                        <dd class="col-sm-9">
-                            <a href="" class="btn btn-success @if($order->isApproved()) disabled @endif">Approve</a>
-                            <a href="" class="btn btn-secondary @if($order->isClosed()) disabled @endif">Close</a>
+                        <dt class="col-sm-2">Available actions:</dt>
+                        <dd class="col-sm-10">
+                            @can('close', $order)
+                                <a href="" class="btn btn-sm btn-secondary @if($order->isClosed()) disabled @endif">Close</a>
+                            @endcan
                         </dd>
                     </dl>
                 </div>

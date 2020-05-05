@@ -41,6 +41,15 @@ class Order extends Model
     public const STATUS_APPROVED = 'approved';
     public const STATUS_CLOSED = 'close';
 
+    public const PERMISSION_LIST = 'order list';
+    public const PERMISSION_VIEW = 'order view';
+    public const PERMISSION_VIEW_ANY = 'order view any';
+    public const PERMISSION_CREATE = 'order create';
+    public const PERMISSION_UPDATE = 'order update';
+    public const PERMISSION_UPDATE_ANY = 'order update any';
+    public const PERMISSION_DELETE = 'order delete';
+    public const PERMISSION_DELETE_ANY = 'order delete any';
+
     protected $fillable = [
         'title',
         'note',
