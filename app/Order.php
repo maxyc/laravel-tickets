@@ -60,13 +60,13 @@ class Order extends Model
         'owner_id',
     ];
 
-    public static function getAvailableStatuses(): array
+    public static function getAvailableStatuses()
     {
-        return [
-            static::STATUS_NEW,
-            static::STATUS_APPROVED,
-            static::STATUS_CLOSED
-        ];
+        return collect([
+            static::STATUS_NEW => static::STATUS_NEW,
+            static::STATUS_APPROVED => static::STATUS_APPROVED,
+            static::STATUS_CLOSED => static::STATUS_CLOSED
+        ]);
     }
 
     public function getCountMessagesAttribute(): int
