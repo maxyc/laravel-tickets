@@ -94,7 +94,7 @@ class OrderController extends Controller
         try {
             $this->updateStatusOrderService->close($order->id);
 
-            return redirect()->back()->with('success', 'Message added');
+            return redirect()->back()->with('success', 'Order closed');
         } catch (\Throwable $e) {
             return redirect()->back()->with(
                 'error',
