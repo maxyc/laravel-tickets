@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\AnswerRequest;
+use App\Http\Requests\Frontend\CreateOrderRequest;
 use App\Http\Requests\Frontend\OrderListRequest;
 use App\Order;
+use App\UseCases\Order\CreateOrderService;
 use App\UseCases\Order\Message\CreateOrderMessageService;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,10 +17,17 @@ class OrderController extends Controller
      * @var CreateOrderMessageService
      */
     private $createOrderMessageService;
+    /**
+     * @var CreateOrderService
+     */
+    private $createOrderService;
 
-    public function __construct(CreateOrderMessageService $createOrderMessageService)
-    {
+    public function __construct(
+        CreateOrderService $createOrderService,
+        CreateOrderMessageService $createOrderMessageService
+    ) {
         $this->createOrderMessageService = $createOrderMessageService;
+        $this->createOrderService = $createOrderService;
     }
 
     public function index(OrderListRequest $request)
@@ -38,8 +47,20 @@ class OrderController extends Controller
         return view('web.frontend.sections.orders.create');
     }
 
-    public function store()
+    public function store(CreateOrderRequest $request)
     {
+        try {
+            $this->createOrderService->create(Auth::user()->id, $request->validated());
+            return redirect()->back()->with('success', 'Order created');
+        } catch (\Throwable $e) {
+            return redirect()->back()->with(
+                'error',
+                'Order not created. Try again later!'
+                . (
+                config('app.env') === 'local' ? ' ' . $e->getMessage() : ''
+                )
+            );
+        }
     }
 
     public function show(Order $order)
@@ -53,10 +74,10 @@ class OrderController extends Controller
         try {
             $this->createOrderMessageService->create($order->id, Auth::user()->id, $request->validated());
             return redirect()->back()->with('success', 'Message added');
-        } catch (\Throwable $e) { dd($e);
+        } catch (\Throwable $e) {
             return redirect()->back()->with(
                 'error',
-                'Message not added. Try later!'
+                'Message not added. Try again later!'
                 . (
                 config('app.env') === 'local' ? ' ' . $e->getMessage() : ''
                 )

@@ -23,6 +23,10 @@ Route::get('/home', 'Frontend\\HomeController@index')->name('home');
 
     Route::group(['prefix'=>'orders', 'middleware'=>['web', 'auth']], static function(){
         Route::name('frontend.orders.index')->get('/', 'Frontend\OrderController@index');
+        Route::name('frontend.orders.create')->get('/create', 'Frontend\OrderController@create');
+        Route::name('frontend.orders.store')->post('/create', 'Frontend\OrderController@store');
+
         Route::name('frontend.orders.show')->get('{order}', 'Frontend\OrderController@show');
         Route::name('frontend.orders.answer')->post('{order}/answer', 'Frontend\OrderController@answer');
     });
+

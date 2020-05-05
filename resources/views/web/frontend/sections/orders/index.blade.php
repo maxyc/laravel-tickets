@@ -6,6 +6,10 @@
     <div class="container">
         <div class="row">
 
+            @can('create_order', Auth::user())
+            <a href="{{ route('frontend.orders.create') }}" class="btn btn-primary btn-sm">Create new order</a>
+            @endcan
+
             <table class="table table-bordered table-stripped table-hover">
                 <thead class="thead-dark">
                 <tr>
